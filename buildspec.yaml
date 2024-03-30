@@ -19,7 +19,7 @@ phases:
       - export PATH=$PATH:$PWD
       # - trivy filesystem --exit-code 0 --no-progress .
       - echo "Downloading and installing OWASP Dependency-Check..."
-      - wget https://dl.bintray.com/jeremy-long/owasp/dependency-check-7.0.2-release.zip
+      - wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.0.2/dependency-check-7.0.2-release.zip
       - unzip dependency-check-7.0.2-release.zip
   build:
     commands:
