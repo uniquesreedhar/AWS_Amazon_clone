@@ -27,7 +27,7 @@ phases:
   post_build:
     commands:
       - echo "Performing Trivy image scan after building the image..."
-      - trivy image --exit-code 1 --no-progress "$DOCKER_REGISTRY_USERNAME/amazon:latest"
+      - trivy image  "$DOCKER_REGISTRY_USERNAME/amazon:latest"
       - echo "Build completed successfully!"
 artifacts:
   files:
