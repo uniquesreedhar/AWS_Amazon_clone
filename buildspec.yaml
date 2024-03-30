@@ -12,6 +12,11 @@ phases:
   pre_build:
     commands:
       - echo "Installing dependencies..."
+      - echo "Performing Trivy file scan before building the image..."
+      - wget https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz
+      - tar zxvf trivy_0.19.2_Linux-64bit.tar.gz
+      - export PATH=$PATH:$PWD
+      - trivy filesystem --exit-code 0 --no-progress .
   build:
     commands:
       - echo "Running tests..."
@@ -21,6 +26,8 @@ phases:
       - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/amazon:latest"
   post_build:
     commands:
+      - echo "Performing Trivy image scan after building the image..."
+      - trivy image --exit-code 1 --no-progress "$DOCKER_REGISTRY_USERNAME/amazon:latest"
       - echo "Build completed successfully!"
 artifacts:
   files:
