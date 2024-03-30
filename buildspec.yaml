@@ -17,7 +17,7 @@ phases:
       - wget https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz
       - tar zxvf trivy_0.19.2_Linux-64bit.tar.gz
       - export PATH=$PATH:$PWD
-      - trivy filesystem --exit-code 0 --no-progress . > trivyscan.txt
+      - trivy filesystem --exit-code 0 --no-progress . >> trivyscan.txt
       - echo "Downloading and installing OWASP Dependency-Check..."
       - wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.0.2/dependency-check-7.0.2-release.zip
       - unzip dependency-check-7.0.2-release.zip
