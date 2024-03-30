@@ -9,7 +9,7 @@ phases:
   install:
     runtime-versions:
       python: 3.11
-      java: corretto11
+      java: corretto17
   pre_build:
     commands:
       - echo "Installing dependencies..."
