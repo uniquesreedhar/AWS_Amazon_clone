@@ -5,6 +5,7 @@ env:
     DOCKER_REGISTRY_USERNAME: /cicd/docker-credentials/username
     DOCKER_REGISTRY_PASSWORD: /cicd/docker-credentials/password
     DOCKER_REGISTRY_URL: /cicd/docker-registry/url
+    SONAR_TOKEN: /cicd/sonar/sonar-token
 phases:
   install:
     runtime-versions:
@@ -21,9 +22,13 @@ phases:
       # - echo "Downloading and installing OWASP Dependency-Check..."
       # - wget https://github.com/jeremylong/DependencyCheck/releases/download/v7.0.2/dependency-check-7.0.2-release.zip
       # - unzip dependency-check-7.0.2-release.zip
-      - echo "Installing SonarQube Scanner"
-      - curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-      - unzip sonar-scanner-cli.zip
+      - export SONAR_SCANNER_VERSION=4.7.0.2747
+      - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+      - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+      - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+      - export SONAR_SCANNER_OPTS="-server"
+
   build:
     commands:
       # - echo "Running tests..."
@@ -40,11 +45,10 @@ phases:
       # - ./dependency-check.sh --scan . --format ALL
       # - echo "Build completed successfully!"
       - echo "Running SonarQube analysis result"
-      - ./sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-          -Dsonar.host.url=http://15.206.145.132:9000 \
-          -Dsonar.login=sqp_a4cb38492c16347df742c7976b6ed38e66f71f98 \
-          -Dsonar.projectKey=Amazon \
-          -Dsonar.sources=.
+      - sonar-scanner \
+        -Dsonar.projectKey=Amazon \
+        -Dsonar.sources=. \
+        -Dsonar.host.url=http://15.206.145.132:9000
 artifacts:
   files:
     - '**/*'
