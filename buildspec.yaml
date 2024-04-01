@@ -39,7 +39,7 @@ phases:
       # - cd dependency-check/bin
       # - ./dependency-check.sh --scan . --format ALL
       # - echo "Build completed successfully!"
-      - echo "Running SonarQube analysis"
+      - echo "Running SonarQube analysis result"
       - ./sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
           -Dsonar.host.url=http://15.206.145.132:9000 \
           -Dsonar.login=sqp_a4cb38492c16347df742c7976b6ed38e66f71f98 \
