@@ -13,8 +13,8 @@ phases:
       java: corretto17
   pre_build:
     commands:
-      - export SONAR_PROJECT_KEY=$(aws secretsmanager get-secret-value --secret-key sonar_project_key --region ap-south-1 --query SecretString.sonar_project_key --output text)
-      - export SONAR_HOST_URL=$(aws secretsmanager get-secret-value --secret-key sonar_host  --region ap-south-1 --query SecretString.sonar_host --output text)
+      - export SONAR_PROJECT_KEY=$(aws secretsmanager get-secret-value --secret-key $sonar_project_key --region ap-south-1 --query SecretString.sonar_project_key --output text)
+      - export SONAR_HOST_URL=$(aws secretsmanager get-secret-value --secret-key $sonar_host  --region ap-south-1 --query SecretString.sonar_host --output text)
       # - echo "Installing dependencies..."
       # - echo "Performing Trivy file scan before building the image..."
       # - wget https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz
