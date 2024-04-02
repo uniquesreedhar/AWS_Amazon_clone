@@ -14,7 +14,7 @@ phases:
   pre_build:
     commands:
       - export SONAR_PROJECT_KEY=$(aws secretsmanager get-secret-value --secret-key sonar_project_key --region ap-south-1 --query SecretString.sonar_project_key --output text)
-      - export SONAR_HOST_URL=$(aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:ap-south-1:590184124026:secret:sonar_host-fWxvxR  --region ap-south-1 --query SecretString.sonar_host --output text)
+      - export SONAR_HOST_URL=$(aws secretsmanager get-secret-value --secret-id arn:aws:secretsmanager:ap-south-1:590184124026:secret:sonar_host-fWxvxR  --region ap-south-1 --query SecretString --output text)
       - echo $SONAR_PROJECT_KEY
       - echo $SONAR_HOST_URL
       # - echo "Installing dependencies..."
